@@ -1,0 +1,9 @@
+package cl.sistema.frameworkauth.service;
+
+import cl.sistema.frameworkauth.vo.ResponseSuccessVO;
+import cl.sistema.frameworkauth.vo.UsuarioResponseVO;
+
+public interface IUsuarioService {
+
+	public ResponseSuccessVO<UsuarioResponseVO> obtenerPermisosUsu ( String usuario, int empresa)  throws Exception ;
+}

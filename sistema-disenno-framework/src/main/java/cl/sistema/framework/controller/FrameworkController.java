@@ -1,0 +1,35 @@
+package cl.sistema.framework.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import cl.sistema.framework.service.IFrameworkService;
+import cl.sistema.framework.vo.ResponsePremisosVO;
+import cl.sistema.framework.vo.ResponseSuccessVO;
+
+@RestController
+@CrossOrigin(origins ="http://localhost:4200") 
+@RequestMapping("/v1/premisos")
+public class FrameworkController {
+	
+	@Autowired
+	IFrameworkService iFrameworkService;
+	
+	@GetMapping("/usuario/{usuario}/empresa/{empresa}") 
+	public ResponseEntity<ResponseSuccessVO<ResponsePremisosVO>> obtenerPermisos (@PathVariable("usuario") String usuario, 
+			@PathVariable("empresa") int empresa)  throws Exception {
+				System.out.println("Controller");
+		ResponseSuccessVO<ResponsePremisosVO> response =  iFrameworkService.obtenerPermisosUsu(usuario, empresa);
+		
+		
+		return ResponseEntity.ok(response);	
+		
+		
+	}
+
+}

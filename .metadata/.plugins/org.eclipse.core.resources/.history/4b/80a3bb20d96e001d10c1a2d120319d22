@@ -1,0 +1,5 @@
+package cl.sistema.frameworkauth.service;
+
+public interface IUsuarioService {
+
+}

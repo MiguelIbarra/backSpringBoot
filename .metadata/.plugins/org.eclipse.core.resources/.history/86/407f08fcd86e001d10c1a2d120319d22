@@ -1,0 +1,5 @@
+package cl.sistema.frameworkauth.repository;
+
+public class UsuarioRepository {
+
+}

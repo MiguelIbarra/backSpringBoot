@@ -1,0 +1,5 @@
+package cl.sistema.frameworkauth.controller;
+
+public class UsuarioController {
+
+}

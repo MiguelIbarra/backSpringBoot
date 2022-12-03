@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:oracle:thin:@10.150.229.129:1521:pbsaps
+spring.datasource.driverClassName=oracle.jdbc.driver.OracleDriver
+spring.datasource.username=APPPOCHA
+spring.datasource.password=ChaDeQA
+atencion.schema.bd=ATENCION

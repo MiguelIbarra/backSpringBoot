@@ -1,0 +1,23 @@
+package cl.sistema.framework.vo;
+
+public class SubMenuVO {
+	
+	private String nombreSubMenu;
+	private int idSubMenu;
+	
+	public String getNombreSubMenu() {
+		return nombreSubMenu;
+	}
+	public void setNombreSubMenu(String nombreSubMenu) {
+		this.nombreSubMenu = nombreSubMenu;
+	}
+	public int getIdSubMenu() {
+		return idSubMenu;
+	}
+	public void setIdSubMenu(int idSubMenu) {
+		this.idSubMenu = idSubMenu;
+	}
+	
+	
+
+}

@@ -1,0 +1,23 @@
+package cl.sistema.frameworkauth;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import cl.sistema.framework.SistemaDisennoFrameworkApplication;
+
+@SpringBootApplication
+public class SistemaDisennoFrameworkAuthApplication extends SpringBootServletInitializer{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SistemaDisennoFrameworkAuthApplication.class, args);
+	}
+	
+	@Override
+    protected SpringApplicationBuilder configure(
+      SpringApplicationBuilder builder) {
+        return builder.sources(SistemaDisennoFrameworkAuthApplication.class);
+    }
+
+}

@@ -1,0 +1,13 @@
+package cl.sistema.framework;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+public class SistemaDisennoFrameworkApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SistemaDisennoFrameworkApplication.class, args);
+	}
+
+}

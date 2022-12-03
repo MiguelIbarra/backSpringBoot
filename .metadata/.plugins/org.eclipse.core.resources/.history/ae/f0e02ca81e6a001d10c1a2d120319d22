@@ -1,0 +1,45 @@
+package cl.sistema.framework.repository;
+
+import java.sql.Types;
+import java.util.Map;
+
+import org.springframework.jdbc.core.SqlInOutParameter;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class FrameworkRepository {
+	
+	
+	
+	
+	
+	
+	
+	public Map<String, Object> obtenerPermisosUsuRepo(String usuario, int empresa) throws Exception  {
+		
+		Map<String, Object> result = null;
+		try {
+			SimpleJdbcCall getSqlCall = new SimpleJdbcCall(datasource.dataSource()).withSchemaName("SISALUD2").withCatalogName("SVCOBTFICHACLINICAG_PKG")
+					.withProcedureName("SvcObtFichaClinicaG")
+					.declareParameters(new SqlInOutParameter("SRV_Message", Types.VARCHAR,"SRV_MESSAGE"),
+							new SqlParameter("In_hdgCodigo", Types.INTEGER,"IN_HDGCODIGO"),		
+							new SqlParameter("In_cliId", Types.INTEGER,"IN_CLIID"),							
+							new SqlOutParameter("Out_ficNumFicha", Types.VARCHAR, "OUT_FICNUMFICHA"));
+
+			result = getSqlCall.execute(usuario, usuario); 
+			
+		}catch (Exception e) {
+			throw e;
+		}
+		
+		
+		LOG.info("resultado Ficha Clinica: "+result);
+		return result;
+	}
+	
+	
+
+}

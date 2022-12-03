@@ -1,0 +1,11 @@
+package cl.sistema.framework.service;
+
+import cl.sistema.framework.vo.ResponsePremisosVO;
+import cl.sistema.framework.vo.ResponseSuccessVO;
+
+public interface IFrameworkService {
+
+	
+	public ResponseSuccessVO<ResponsePremisosVO> obtenerPermisosUsu ( String usuario, int empresa);
+	
+}

@@ -1,0 +1,8 @@
+package cl.sistema.framework.service;
+
+public interface IFrameworkService {
+
+	
+	
+	
+}

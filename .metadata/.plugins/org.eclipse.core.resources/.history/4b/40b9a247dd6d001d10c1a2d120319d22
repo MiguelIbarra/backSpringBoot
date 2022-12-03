@@ -1,0 +1,119 @@
+package cl.sistema.framework.service.impl;
+
+
+
+import java.sql.Array;
+import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cl.sistema.framework.repository.FrameworkRepository;
+import cl.sistema.framework.service.IFrameworkService;
+import cl.sistema.framework.vo.MenuVO;
+import cl.sistema.framework.vo.ModuloVO;
+import cl.sistema.framework.vo.ResponsePremisosVO;
+import cl.sistema.framework.vo.ResponseSuccessVO;
+import cl.sistema.framework.vo.SubMenuVO;
+
+@Service
+public class FrameworkServiceImpl implements IFrameworkService {
+
+	
+	@Autowired
+	FrameworkRepository frameworkRepository;
+	
+	@Override
+	public ResponseSuccessVO<ResponsePremisosVO> obtenerPermisosUsu(String usuario, int empresa) throws Exception {
+		 
+		
+		ResponseSuccessVO<ResponsePremisosVO> response = new ResponseSuccessVO<ResponsePremisosVO>();
+		Map<String, Object> result = frameworkRepository.obtenerPermisosUsuRepo(usuario, empresa);
+		
+		//Array arrayPermisos = (Array) result.get("#result-set-1");		
+		ArrayList arrayPermisos = (ArrayList) result.get("#result-set-1");
+
+		System.out.println("lista Completa: "+ arrayPermisos.size());
+		
+		ResponsePremisosVO repsponPremisoVO = new ResponsePremisosVO();
+		List<ModuloVO> listaModulo = new ArrayList<ModuloVO>();
+		List<MenuVO> listaMenu = new ArrayList<MenuVO>();
+		int auxModulo = 0;
+		int auxMenu = 0;
+		int auxSubMenu = 0;
+		
+		for(int i = 0; i < arrayPermisos.size(); i++) {
+			
+			System.out.println("Permisos Modulo: "+ arrayPermisos.get(i));			
+			Map<String, Object>  permiso = (Map<String, Object>) arrayPermisos.get(i);					
+			if(auxModulo != ((int)permiso.get("id_modulo")))
+			{
+				auxModulo = (int) permiso.get("id_modulo");
+				ModuloVO modulo = new ModuloVO();
+				modulo.setIdModulo((int) permiso.get("id_modulo"));
+				modulo.setNombreModulo(permiso.get("id_modulo").toString());						
+				
+				
+				for(int j = 0; j < arrayPermisos.size(); j++) {			
+					System.out.println("Permisos Menu: "+ arrayPermisos.get(j));
+					Map<String, Object>  permisoMenu = (Map<String, Object>) arrayPermisos.get(j);	
+					System.out.println("moudo y menu "+permisoMenu.get("id_modulo") + "  " +  permiso.get("id_modulo"));
+					if(auxMenu != (int)permisoMenu.get("id_menu") && (int)permisoMenu.get("id_modulo") == (int)permiso.get("id_modulo"))
+					{
+						System.out.println("son iguales");
+						auxMenu = (int) permisoMenu.get("id_menu");
+						MenuVO menu = new MenuVO();					
+						menu.setIdMenu((int) permisoMenu.get("id_menu"));
+						menu.setNombreMenu(permisoMenu.get("nombre_menu").toString());										
+						listaMenu.add(menu);
+						System.out.println("lista menu seteado con menu: "+listaMenu +"para el modulo: "+modulo.getIdModulo());
+						modulo.setMenu(listaMenu);
+					}		
+					
+				}			
+				
+				System.out.println("Modulo seteado con menu: "+modulo);
+				//listaModulo.add(modulo);
+			}	
+			
+		}
+		
+		System.out.println("Lista modulo: "+ listaModulo);
+		System.out.println("Lista menu: "+ listaMenu);	
+		
+		
+		
+		/*for(int i = 0; i < listaModulo.size(); i++) {	
+			ModuloVO modulo = listaModulo.get(i);
+			
+			System.out.println("Modulo: "+ modulo);
+			
+			for(int j = 0; j < arrayPermisos.size(); j++) {					
+				Map<String, Object>  permiso = (Map<String, Object>) arrayPermisos.get(j);					
+				if(auxMenu != ((int)permiso.get("id_menu")))
+				{
+					auxMenu = (int) permiso.get("id_menu");
+					MenuVO menu = new MenuVO();					
+					menu.setIdMenu((int) permiso.get("id_menu"));
+					menu.setNombreMenu(permiso.get("id_menu").toString());										
+					listaMenu.add(menu);
+				}				
+			}			
+			modulo.setMenu(listaMenu);		
+							
+		}*/
+		
+		
+		
+			
+			
+		
+		
+		return null;
+	}
+
+}

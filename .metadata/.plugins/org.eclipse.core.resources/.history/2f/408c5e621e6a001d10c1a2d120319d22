@@ -1,0 +1,11 @@
+package cl.sistema.framework.repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class FrameworkRepository {
+	
+	
+	
+
+}

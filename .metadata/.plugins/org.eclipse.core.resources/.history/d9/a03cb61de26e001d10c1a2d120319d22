@@ -1,0 +1,42 @@
+package cl.sistema.frameworkauth.service.impl;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import cl.sistema.frameworkauth.repository.UsuarioRepository;
+import cl.sistema.frameworkauth.service.IUsuarioService;
+import cl.sistema.frameworkauth.vo.ResponseSuccessVO;
+import cl.sistema.frameworkauth.vo.UsuarioResponseVO;
+
+@Service
+public class UsuarioServiceImpl implements IUsuarioService{
+
+	@Autowired 
+	UsuarioRepository usuarioRepository;
+	
+	@Override
+	public ResponseSuccessVO<UsuarioResponseVO> login(String usuario, String password, int empresa) throws Exception {
+		
+		ResponseSuccessVO<UsuarioResponseVO> response= new  ResponseSuccessVO<UsuarioResponseVO>();
+		
+		UsuarioResponseVO usuResponse = new UsuarioResponseVO();
+		Map<String, Object> result = usuarioRepository.login(usuario, password, empresa);
+		int codSalida = (int) result.get("CodSalida");
+		String mnsSalida  = result.get("MsnSalida").toString();
+		String nombreEmpresa  = result.get("Empresa").toString();
+		
+		System.out.println("Salida  Imple: "+codSalida + " " +mnsSalida);
+		
+		
+		usuResponse.setNombreEmpresa(nombreEmpresa);
+		response.setCodigoRetorno(codSalida);
+		response.setGlosaRetorno(mnsSalida);
+		
+		
+		return response;
+	}
+
+}
