@@ -2,6 +2,7 @@ package cl.sistema.frameworkauth.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,12 +40,16 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		System.out.println("Salida  Imple: "+codSalida + " " +mnsSalida);
 		response.setCodigoRetorno(codSalida);
 		response.setGlosaRetorno(mnsSalida);
+		Map<String, Object> clain = new HashMap<>();
 		
 		if(response.getCodigoRetorno() == 0) {			
 			usuResponse.setIdEmpresa(empresa);
 			usuResponse.setUsuario(usuario);
 			usuResponse.setNombreEmpresa(result.get("Empresa").toString());
-			usuResponse.setToken(getJWTToken(usuario));		
+			clain.put("idUsuario", usuario);
+			clain.put("idempresa", empresa);
+			clain.put("nobreEmpresa", result.get("Empresa").toString());
+			usuResponse.setToken(getJWTToken(clain));		
 			response.setResultado(usuResponse);
 		}else {
 			response.setResultado(null);
@@ -56,15 +61,14 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
 	
 	
-	private String getJWTToken(String username) {
+	private String getJWTToken(Map<String, Object> clain ) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
 		String token = Jwts
 				.builder()
-				.setId("softtekJWT")
-				.setSubject(username)
+				.setId("softtekJWT").setClaims(clain)
 				.claim("authorities",
 						grantedAuthorities.stream()
 								.map(GrantedAuthority::getAuthority)
