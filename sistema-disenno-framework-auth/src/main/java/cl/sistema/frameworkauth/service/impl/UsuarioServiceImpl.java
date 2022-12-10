@@ -48,6 +48,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 			usuResponse.setNombreEmpresa(result.get("Empresa").toString());
 			clain.put("idUsuario", usuario);
 			clain.put("idempresa", empresa);
+			clain.put("status", "OK");
 			clain.put("nobreEmpresa", result.get("Empresa").toString());
 			usuResponse.setToken(getJWTToken(clain));		
 			response.setResultado(usuResponse);
